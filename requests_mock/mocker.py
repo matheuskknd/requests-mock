@@ -168,7 +168,7 @@ class MockerCore(object):
                 # completed as long as we monkeypatch get_adapter() each
                 # time immediately before calling original send() like we
                 # are doing here.
-                _set_method(session, "get_adapter", _fake_get_adapter)
+                _set_method(self._mock_target, "get_adapter", _fake_get_adapter)
 
                 # NOTE(jamielennox): self._last_send vs _original_send. Whilst
                 # it seems like here we would use _last_send there is the
@@ -192,7 +192,7 @@ class MockerCore(object):
                     pass
                 finally:
                     # restore get_adapter
-                    _set_method(session, "get_adapter", self._last_get_adapter)
+                    _set_method(self._mock_target, "get_adapter", self._last_get_adapter)
 
             # if we are here it means we must run the real http request
             # Or, with nested mocks, to the parent mock, that is why we use
